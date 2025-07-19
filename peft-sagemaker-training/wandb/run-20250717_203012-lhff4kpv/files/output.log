@@ -1,0 +1,51 @@
+  0%|                                                                                                                                              | 0/4 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 778, in convert_to_tensors
+    tensor = as_tensor(value)
+             ^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 740, in as_tensor
+    return torch.tensor(value)
+           ^^^^^^^^^^^^^^^^^^^
+ValueError: too many dimensions 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vhodlevskyi/gpu/lab/peft-sagemaker-project/src/train.py", line 156, in <module>
+    main()
+  File "/home/vhodlevskyi/gpu/lab/peft-sagemaker-project/src/train.py", line 144, in main
+    trainer.train()
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/trainer.py", line 2242, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/trainer.py", line 2511, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches, args.device)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/trainer.py", line 5265, in get_batch_samples
+    batch_samples.append(next(epoch_iterator))
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/accelerate/data_loader.py", line 566, in __iter__
+    current_batch = next(dataloader_iter)
+                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 733, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 789, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/data/data_collator.py", line 272, in __call__
+    batch = pad_without_fast_tokenizer_warning(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/data/data_collator.py", line 67, in pad_without_fast_tokenizer_warning
+    padded = tokenizer.pad(*pad_args, **pad_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 3386, in pad
+    return BatchEncoding(batch_outputs, tensor_type=return_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 242, in __init__
+    self.convert_to_tensors(tensor_type=tensor_type, prepend_batch_axis=prepend_batch_axis)
+  File "/home/vhodlevskyi/miniconda3/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 794, in convert_to_tensors
+    raise ValueError(
+ValueError: Unable to create tensor, you should probably activate truncation and/or padding with 'padding=True' 'truncation=True' to have batched tensors with the same length. Perhaps your features (`text` in this case) have excessive nesting (inputs type `list` where type `int` is expected).

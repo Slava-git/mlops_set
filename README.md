@@ -1,6 +1,6 @@
 # LMSYS Human Labeling Dataset
 
-## 🔧 Annotation Tool
+## Annotation Tool
 
 [Label Studio](https://labelstud.io/) was used for response annotation, an open-source data annotation platform. The annotation was performed manually using a custom interface that compares `response_a` and `response_b` responses and determines the better one (or records a tie).
 
@@ -17,13 +17,12 @@
    ```
 
 3. Log in or create an account.
-
 4. Open the `LMSYS` project and review the data or start new annotation.
 
-## Video Demonstration
+## Video Demonstrations
 
-Watch the video demonstration of the annotation process:
-[Label Studio Annotation Demo](https://www.loom.com/share/2b9fbea13de14d4cb421955e5f42fcbe?sid=66fe15ab-736a-47e6-8a4f-a8fa5b2d6dc5)
+- **Annotation Process**: [Label Studio Annotation Demo](https://www.loom.com/share/2b9fbea13de14d4cb421955e5f42fcbe?sid=66fe15ab-736a-47e6-8a4f-a8fa5b2d6dc5)
+- **PEFT Training**: [SageMaker Training with W&B Tracking](https://www.loom.com/share/c164419704ca4a9c9de8f86dd5412499?sid=ac4d85df-9f33-4cfb-a396-c408c3b2a643)
 
 ## Data Versioning
 
@@ -44,12 +43,40 @@ dvc push
 git checkout v1
 dvc checkout
 ```
+
+## PEFT Training Pipeline
+
+### Quick Start
+```bash
+# Configure AWS credentials
+aws configure
+
+# Prepare data for training
+python peft-sagemaker-training/scripts/prepare_lmsys_data.py
+
+# Upload to S3
+python peft-sagemaker-training/scripts/upload_data.py
+
+# Set Weights & Biases API key
+export WANDB_API_KEY="your-wandb-api-key"
+
+# Submit training job
+python peft-sagemaker-training/scripts/submit_training.py
+```
+
+### Project Structure
+```
+peft-sagemaker-training/
+├── src/train.py              # PEFT training script
+├── scripts/                  # Data prep and submission
+├── data/local/              # Local data storage
+└── requirements.txt         # Dependencies
+```
+
 ## Goal
+
 This annotated dataset can be used for multiple machine learning applications:
 
-Text Classification:
-Multi-class classification of response quality (winner/loser/tie)
-
-Alignment and Fine-tuning:
-Reinforcement Learning from Human Feedback training or Dpo approach
-
+- **Text Classification**: Multi-class classification of response quality (winner/loser/tie)
+- **Alignment and Fine-tuning**: Reinforcement Learning from Human Feedback training or DPO approach
+- **PEFT Training**: Parameter-efficient fine-tuning on AWS SageMaker with experiment tracking

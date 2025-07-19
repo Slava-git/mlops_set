@@ -1,0 +1,15 @@
+{"time":"2025-07-17T20:33:24.661019487Z","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/vhodlevskyi/gpu/lab/peft-sagemaker-project/wandb/run-20250717_203324-ve89gxo5/logs/debug-core.log"}
+{"time":"2025-07-17T20:33:24.763405529Z","level":"INFO","msg":"created new stream","id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:24.763468487Z","level":"INFO","msg":"stream: started","id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:24.763473824Z","level":"INFO","msg":"handler: started","stream_id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:24.76350361Z","level":"INFO","msg":"sender: started","stream_id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:24.763541728Z","level":"INFO","msg":"writer: Do: started","stream_id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:25.003542137Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-17T20:33:26.88955639Z","level":"INFO","msg":"stream: closing","id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:26.889582474Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-17T20:33:26.890290445Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-17T20:33:27.274994787Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-17T20:33:27.54098316Z","level":"INFO","msg":"handler: closed","stream_id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:27.541035555Z","level":"INFO","msg":"writer: Close: closed","stream_id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:27.541067878Z","level":"INFO","msg":"sender: closed","stream_id":"ve89gxo5"}
+{"time":"2025-07-17T20:33:27.541118849Z","level":"INFO","msg":"stream: closed","id":"ve89gxo5"}
