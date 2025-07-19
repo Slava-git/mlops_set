@@ -73,6 +73,32 @@ peft-sagemaker-training/
 └── requirements.txt         # Dependencies
 ```
 
+## Model Inference Deployment
+
+### SageMaker Serverless Inference
+```bash
+# Register trained model to W&B Model Registry
+python peft-sagemaker-training/scripts/register_model_to_wandb.py
+
+# Deploy to SageMaker serverless endpoint
+python peft-sagemaker-training/scripts/deploy_to_sagemaker.py
+
+# Test the deployed endpoint
+python peft-sagemaker-training/scripts/test_sagemaker_endpoint.py
+```
+
+### Local Inference Testing
+```bash
+# Test inference locally before deployment
+python peft-sagemaker-training/scripts/test_local_inference.py
+```
+
+### Inference Features
+- **W&B Model Registry**: Model versioning and artifact management
+- **Serverless Deployment**: Pay-per-request, cost-effective for testing
+- **3-Class Classification**: Predicts Model A wins, Model B wins, or Tie
+- **REST API**: JSON input/output for easy integration
+
 ## Goal
 
 This annotated dataset can be used for multiple machine learning applications:
@@ -80,3 +106,4 @@ This annotated dataset can be used for multiple machine learning applications:
 - **Text Classification**: Multi-class classification of response quality (winner/loser/tie)
 - **Alignment and Fine-tuning**: Reinforcement Learning from Human Feedback training or DPO approach
 - **PEFT Training**: Parameter-efficient fine-tuning on AWS SageMaker with experiment tracking
+- **Model Deployment**: Serverless inference endpoints with W&B model registry integration

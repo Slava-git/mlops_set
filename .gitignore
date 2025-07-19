@@ -1,2 +1,5 @@
 /lmsys-annotations-v1.csv
 /lmsys-annotations-v2.csv
+
+peft-sagemaker-training/full_model
+peft-sagemaker-training/artifacts

@@ -1,0 +1,16 @@
+{"time":"2025-07-19T18:31:07.098978928Z","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/vhodlevskyi/gpu/lab/setuniversity-mlops-s25/week-2/peft-sagemaker-training/wandb/run-20250719_183106-ehaiq7yy/logs/debug-core.log"}
+{"time":"2025-07-19T18:31:07.202202922Z","level":"INFO","msg":"created new stream","id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:07.202305363Z","level":"INFO","msg":"stream: started","id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:07.202356243Z","level":"INFO","msg":"sender: started","stream_id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:07.202323332Z","level":"INFO","msg":"handler: started","stream_id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:07.202477335Z","level":"INFO","msg":"writer: Do: started","stream_id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:07.38920334Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-19T18:31:07.834980129Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-19T18:31:07.835610166Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-19T18:31:08.762731066Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-19T18:31:08.827717371Z","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading summary, console lines 0-1","runtime_seconds":0.06480234}],"total_operations":1}}
+{"time":"2025-07-19T18:31:09.883856845Z","level":"INFO","msg":"stream: closing","id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:09.883882068Z","level":"INFO","msg":"handler: closed","stream_id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:09.883902164Z","level":"INFO","msg":"writer: Close: closed","stream_id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:09.883927334Z","level":"INFO","msg":"sender: closed","stream_id":"ehaiq7yy"}
+{"time":"2025-07-19T18:31:09.883973096Z","level":"INFO","msg":"stream: closed","id":"ehaiq7yy"}

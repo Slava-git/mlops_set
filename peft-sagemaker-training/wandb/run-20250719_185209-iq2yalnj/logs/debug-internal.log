@@ -1,0 +1,16 @@
+{"time":"2025-07-19T18:52:09.9400585Z","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/vhodlevskyi/gpu/lab/setuniversity-mlops-s25/week-2/peft-sagemaker-training/wandb/run-20250719_185209-iq2yalnj/logs/debug-core.log"}
+{"time":"2025-07-19T18:52:10.043101629Z","level":"INFO","msg":"created new stream","id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:10.043161493Z","level":"INFO","msg":"stream: started","id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:10.043190006Z","level":"INFO","msg":"writer: Do: started","stream_id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:10.043194209Z","level":"INFO","msg":"handler: started","stream_id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:10.043234658Z","level":"INFO","msg":"sender: started","stream_id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:10.169003586Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-19T18:52:11.598569789Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-19T18:52:11.59920896Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-19T18:52:12.599137143Z","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact lmsys-full-model","runtime_seconds":1.002729231,"subtasks":[{"desc":"pytorch_model.bin","runtime_seconds":0.792358363,"progress":"99.3MB/258.0MB"}]}],"total_operations":1}}
+{"time":"2025-07-19T18:52:14.149814187Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-19T18:52:15.274853368Z","level":"INFO","msg":"stream: closing","id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:15.274888263Z","level":"INFO","msg":"handler: closed","stream_id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:15.274899638Z","level":"INFO","msg":"writer: Close: closed","stream_id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:15.274923458Z","level":"INFO","msg":"sender: closed","stream_id":"iq2yalnj"}
+{"time":"2025-07-19T18:52:15.274961213Z","level":"INFO","msg":"stream: closed","id":"iq2yalnj"}

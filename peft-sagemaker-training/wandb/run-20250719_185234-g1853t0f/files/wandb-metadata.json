@@ -1,0 +1,42 @@
+{
+  "os": "Linux-5.10.0-34-cloud-amd64-x86_64-with-glibc2.31",
+  "python": "CPython 3.12.8",
+  "startedAt": "2025-07-19T18:52:35.003680Z",
+  "program": "/home/vhodlevskyi/gpu/lab/setuniversity-mlops-s25/week-2/peft-sagemaker-training/scripts/test_local_inference.py",
+  "codePath": "peft-sagemaker-training/scripts/test_local_inference.py",
+  "git": {
+    "remote": "https://github.com/Slava-git/mlops_set.git",
+    "commit": "c65297a4ed0f85540fcff5cf7e4f8d5400d48b3e"
+  },
+  "email": "slavagodlevsky86@gmail.com",
+  "root": "/home/vhodlevskyi/gpu/lab/setuniversity-mlops-s25/week-2/peft-sagemaker-training",
+  "host": "gpu-dev",
+  "executable": "/home/vhodlevskyi/miniconda3/bin/python",
+  "codePathLocal": "scripts/test_local_inference.py",
+  "cpu_count": 6,
+  "cpu_count_logical": 12,
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081984454656",
+      "used": "813192994816"
+    }
+  },
+  "memory": {
+    "total": "179380035584"
+  },
+  "cpu": {
+    "count": 6,
+    "countLogical": 12
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.4"
+}
