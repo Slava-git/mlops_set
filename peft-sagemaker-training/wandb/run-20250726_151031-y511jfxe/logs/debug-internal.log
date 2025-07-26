@@ -1,0 +1,17 @@
+{"time":"2025-07-26T15:10:32.048867136Z","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/vhodlevskyi/gpu/lab/setuniversity-mlops-s25/week-2/peft-sagemaker-training/wandb/run-20250726_151031-y511jfxe/logs/debug-core.log"}
+{"time":"2025-07-26T15:10:32.151082707Z","level":"INFO","msg":"created new stream","id":"y511jfxe"}
+{"time":"2025-07-26T15:10:32.151126151Z","level":"INFO","msg":"stream: started","id":"y511jfxe"}
+{"time":"2025-07-26T15:10:32.151163847Z","level":"INFO","msg":"writer: Do: started","stream_id":"y511jfxe"}
+{"time":"2025-07-26T15:10:32.151184274Z","level":"INFO","msg":"handler: started","stream_id":"y511jfxe"}
+{"time":"2025-07-26T15:10:32.151223783Z","level":"INFO","msg":"sender: started","stream_id":"y511jfxe"}
+{"time":"2025-07-26T15:10:32.320558505Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-26T15:10:33.034096407Z","level":"WARN","msg":"sender: sendUseArtifact: job builder disabled, skipping"}
+{"time":"2025-07-26T15:10:33.643820101Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-26T15:10:33.64449589Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-26T15:10:34.031914744Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-26T15:10:34.087965427Z","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-07-26T15:10:35.092193032Z","level":"INFO","msg":"stream: closing","id":"y511jfxe"}
+{"time":"2025-07-26T15:10:35.092224114Z","level":"INFO","msg":"handler: closed","stream_id":"y511jfxe"}
+{"time":"2025-07-26T15:10:35.092237377Z","level":"INFO","msg":"writer: Close: closed","stream_id":"y511jfxe"}
+{"time":"2025-07-26T15:10:35.092266408Z","level":"INFO","msg":"sender: closed","stream_id":"y511jfxe"}
+{"time":"2025-07-26T15:10:35.09232124Z","level":"INFO","msg":"stream: closed","id":"y511jfxe"}

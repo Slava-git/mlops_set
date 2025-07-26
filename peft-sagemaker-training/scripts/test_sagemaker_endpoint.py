@@ -6,7 +6,7 @@ def test_sagemaker_endpoint():
     
     runtime = boto3.client('sagemaker-runtime')
     
-    endpoint_name = "lmsys-serverless-1752952454"
+    endpoint_name = "lmsys-serverless-1753546624"
     
     test_prompts = [
         "[\"Explain quantum computing in simple terms\"]<Model A>: [\"Quantum computing is a new type of computing that uses quantum bits, or qubits, which can be both 0 and 1 at the same time. This allows quantum computers to solve certain problems much faster than regular computers.\"]<Model B>: [\"Quantum computing is a method of computing that uses the principles of quantum mechanics to process information. It is especially useful for tasks like cryptography, simulation, and optimization.\"]",

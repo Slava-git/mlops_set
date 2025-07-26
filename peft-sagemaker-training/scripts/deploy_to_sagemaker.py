@@ -11,17 +11,16 @@ import tempfile
 def deploy_serverless_endpoint():
     """Deploy model as serverless endpoint to SageMaker"""
     
-    print("🚀 Starting SageMaker Serverless deployment...")
+    print("Starting SageMaker Serverless deployment...")
     
     # Initialize SageMaker session
     sagemaker_session = sagemaker.Session()
     role = "arn:aws:iam::262435404301:role/SageMaker-ExecutionRole"
     
-    # Download model from W&B
-    print("📥 Downloading model from W&B...")
+    print("Downloading model from W&B...")
     wandb.init(project="peft-sagemaker", job_type="deployment")
     
-    artifact = wandb.use_artifact("lmsys-full-model:latest")
+    artifact = wandb.use_artifact("lmsys-monitored-model:latest")
     model_dir = artifact.download()
     
     wandb.finish()

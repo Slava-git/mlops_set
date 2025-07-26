@@ -3,7 +3,7 @@ import tempfile
 import sys
 import os
 
-# Add src to path so we can import inference functions
+
 sys.path.append('src')
 from inference import model_fn, predict_fn, input_fn
 
@@ -27,9 +27,9 @@ def test_local_inference():
     print("🤖 Loading model...")
     try:
         model_artifacts = model_fn(model_dir)
-        print("✅ Model loaded successfully!")
+        print("Model loaded successfully!")
     except Exception as e:
-        print(f"❌ Model loading failed: {e}")
+        print(f"Model loading failed: {e}")
         return
     
     # Test predictions
