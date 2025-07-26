@@ -1,0 +1,42 @@
+name: ML Pipeline
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-west-2
+
+jobs:
+  test-setup:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Test AWS credentials
+      run: |
+        pip install boto3
+        python -c "
+        import boto3
+        s3 = boto3.client('s3')
+        print('AWS credentials working')
+        "
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
+    
+    - name: Test W&B credentials
+      run: |
+        pip install wandb
+        python -c "
+        import wandb
+        wandb.login()
+        print('W&B credentials working')
+        "
+      env:
+        WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
