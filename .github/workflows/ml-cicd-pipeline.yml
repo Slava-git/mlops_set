@@ -44,7 +44,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        pip install flake8 black pytest pandas numpy
+        pip install flake8 black pytest pandas numpy boto3
         pip install -r peft-sagemaker-training/src/requirements.txt
     
     - name: Data validation
