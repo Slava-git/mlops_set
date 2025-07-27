@@ -73,6 +73,30 @@ peft-sagemaker-training/
 └── requirements.txt         # Dependencies
 ```
 
+## Model Monitoring and Observability
+
+### CloudWatch Metrics Dashboard
+```bash
+# Create monitoring dashboard
+python peft-sagemaker-training/scripts/create_dashboard.py
+
+# Generate test data for metrics
+python peft-sagemaker-training/scripts/generate_test_data.py
+```
+
+### Monitoring Features
+- **Predictions per Minute**: Real-time request volume tracking
+- **Average Processing Time**: Latency monitoring for performance optimization
+- **Success/Failure Rates**: Error rate monitoring and alerting
+- **Input Data Analysis**: Text length and word count distribution tracking
+- **CloudWatch Integration**: Native AWS monitoring with custom metrics
+
+### Dashboard Access
+View your monitoring dashboard at:
+```
+AWS Console → CloudWatch → Dashboards → LMSYS-Model-Monitoring
+```
+
 ## Model Inference Deployment
 
 ### SageMaker Serverless Inference
@@ -98,6 +122,7 @@ python peft-sagemaker-training/scripts/test_local_inference.py
 - **Serverless Deployment**: Pay-per-request, cost-effective for testing
 - **3-Class Classification**: Predicts Model A wins, Model B wins, or Tie
 - **REST API**: JSON input/output for easy integration
+- **Real-time Monitoring**: Comprehensive metrics and alerting
 
 ## Goal
 
@@ -107,3 +132,4 @@ This annotated dataset can be used for multiple machine learning applications:
 - **Alignment and Fine-tuning**: Reinforcement Learning from Human Feedback training or DPO approach
 - **PEFT Training**: Parameter-efficient fine-tuning on AWS SageMaker with experiment tracking
 - **Model Deployment**: Serverless inference endpoints with W&B model registry integration
+- **Production Monitoring**: Real-time observability and performance tracking

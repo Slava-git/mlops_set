@@ -1,0 +1,236 @@
+name: ML Model CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'peft-sagemaker-training/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+    inputs:
+      force_retrain:
+        description: 'Force model retraining'
+        required: false
+        default: 'false'
+        type: boolean
+      deploy_to_prod:
+        description: 'Deploy to production'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  AWS_REGION: us-east-1
+  PYTHON_VERSION: '3.10'
+
+jobs:
+  # Етап 1: Валідація коду та даних
+  validation:
+    runs-on: ubuntu-latest
+    outputs:
+      should_train: ${{ steps.check_changes.outputs.should_train }}
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        pip install flake8 black pytest pandas numpy
+        pip install -r peft-sagemaker-training/src/requirements.txt
+    
+    - name: Code quality checks
+      run: |
+        echo "🔍 Running code quality checks..."
+        flake8 peft-sagemaker-training/ --max-line-length=100 --extend-ignore=E203,W503
+        black --check peft-sagemaker-training/ || echo "⚠️ Code formatting issues found"
+    
+    - name: Data validation
+      run: |
+        echo "📊 Validating training data..."
+        python tests/test_data_validation.py
+    
+    - name: Check if retraining needed
+      id: check_changes
+      run: |
+        if [[ "${{ github.event.inputs.force_retrain }}" == "true" ]]; then
+          echo "should_train=true" >> $GITHUB_OUTPUT
+          echo "🔄 Forced retraining requested"
+        elif [[ "${{ github.event_name }}" == "push" ]] && [[ "${{ github.ref }}" == "refs/heads/master" || "${{ github.ref }}" == "refs/heads/main" ]]; then
+          # Check if model-related files changed
+          git diff --name-only HEAD~1 HEAD | grep -E "(src/|scripts/|data/)" && echo "should_train=true" >> $GITHUB_OUTPUT || echo "should_train=false" >> $GITHUB_OUTPUT
+          echo "📝 Checked file changes for retraining decision"
+        else
+          echo "should_train=false" >> $GITHUB_OUTPUT
+          echo "📝 No retraining needed"
+        fi
+
+  # Етап 2: Тренування моделі
+  training:
+    runs-on: ubuntu-latest
+    needs: validation
+    if: needs.validation.outputs.should_train == 'true'
+    outputs:
+      model_version: ${{ steps.train.outputs.model_version }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    
+    - name: Install dependencies
+      run: |
+        pip install -r peft-sagemaker-training/src/requirements.txt
+        pip install sagemaker boto3
+    
+    - name: Prepare training data
+      run: |
+        echo "📚 Preparing training data..."
+        cd peft-sagemaker-training
+        python scripts/prepare_lmsys_data.py
+        python scripts/upload_data.py
+      env:
+        WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+    
+    - name: Submit training job
+      id: train
+      run: |
+        echo "🏋️ Starting model training..."
+        cd peft-sagemaker-training
+        python scripts/submit_training.py
+        
+        # Generate model version
+        MODEL_VERSION=$(date +"%Y%m%d_%H%M%S")_${{ github.sha }}
+        echo "model_version=$MODEL_VERSION" >> $GITHUB_OUTPUT
+        echo "📝 Model version: $MODEL_VERSION"
+      env:
+        WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+    
+    - name: Wait for training completion
+      run: |
+        echo "⏳ Waiting for training to complete..."
+        python scripts/wait_for_training.py
+    
+    - name: Register model
+      run: |
+        echo "📋 Registering model to W&B..."
+        cd peft-sagemaker-training
+        python scripts/register_model_to_wandb.py
+      env:
+        WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+
+  # Етап 3: Валідація моделі
+  model_validation:
+    runs-on: ubuntu-latest
+    needs: [validation, training]
+    if: needs.validation.outputs.should_train == 'true'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        pip install -r peft-sagemaker-training/src/requirements.txt
+    
+    - name: Test model performance
+      run: |
+        echo "🧪 Testing model performance..."
+        cd peft-sagemaker-training
+        python scripts/test_local_inference.py
+      env:
+        WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+
+  # Етап 4: Деплой
+  deployment:
+    runs-on: ubuntu-latest
+    needs: [validation, training, model_validation]
+    if: |
+      needs.validation.outputs.should_train == 'true' && 
+      (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || github.event.inputs.deploy_to_prod == 'true')
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    
+    - name: Install dependencies
+      run: |
+        pip install -r peft-sagemaker-training/src/requirements.txt
+        pip install sagemaker boto3
+    
+    - name: Deploy model
+      run: |
+        echo "🚀 Deploying model to SageMaker..."
+        cd peft-sagemaker-training
+        python scripts/deploy_to_sagemaker.py
+      env:
+        WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+    
+    - name: Test deployment
+      run: |
+        echo "🧪 Testing deployed endpoint..."
+        sleep 60  # Wait for endpoint to be ready
+        python tests/test_endpoint_integration.py
+    
+    - name: Create monitoring dashboard
+      run: |
+        echo "📊 Setting up monitoring..."
+        cd peft-sagemaker-training
+        python scripts/create_dashboard.py
+
+  # Етап 5: Повідомлення
+  notification:
+    runs-on: ubuntu-latest
+    needs: [validation, training, model_validation, deployment]
+    if: always()
+    
+    steps:
+    - name: Deployment notification
+      run: |
+        echo "📢 Pipeline Results:"
+        echo "Validation: ${{ needs.validation.result }}"
+        echo "Training: ${{ needs.training.result }}"
+        echo "Model Validation: ${{ needs.model_validation.result }}"
+        echo "Deployment: ${{ needs.deployment.result }}"
+        
+        if [[ "${{ needs.deployment.result }}" == "success" ]]; then
+          echo "✅ Model successfully deployed to production!"
+          echo "🔗 Check your SageMaker endpoints and CloudWatch dashboard"
+        elif [[ "${{ needs.training.result }}" == "success" ]]; then
+          echo "Model trained successfully but not deployed"
+        else
+          echo "❌ Pipeline failed at some stage"
+        fi
