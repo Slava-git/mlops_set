@@ -119,12 +119,12 @@ jobs:
     
     - name: Wait for training completion
       run: |
-        echo "⏳ Waiting for training to complete..."
-        python scripts/wait_for_training.py
+        echo "Waiting for training to complete..."
+        python peft-sagemaker-training/scripts/wait_for_training.py
     
     - name: Register model
       run: |
-        echo "📋 Registering model to W&B..."
+        echo "Registering model to W&B..."
         cd peft-sagemaker-training
         python scripts/register_model_to_wandb.py
       env:
